@@ -1,0 +1,32 @@
+name: CI/CD image
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Login to DockerHub
+              uses: docker/login-action@v3
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+            - name: Build and push image to DockerHub
+              uses: docker/build-push-action@v5
+              with:
+                context: .
+                file: ./Dockerfile
+                push: true
+                tags: |
+                  thang909/voting-app-microservice-worker:latest
+                  thang909/voting-app-microservice-worker:${{ github.sha }}
+    
+    

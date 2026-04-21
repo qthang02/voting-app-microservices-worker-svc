@@ -30,7 +30,7 @@ jobs:
                   thang909/voting-app-microservice-worker:${{ github.sha }}
     deploy:
         needs: build-and-push
-        runs-on: ubuntu-latest
+        runs-on: self-hosted
 
         steps:
           - name: Setup kubectl

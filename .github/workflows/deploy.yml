@@ -44,5 +44,5 @@ jobs:
           - name: Deploy to Kubernetes
             run: |
               kubectl set image deployment worker-deploy worker=thang909/voting-app-microservice-worker:${{ github.sha }} -n prod
-              kubectl rollout status deployment worker-deploy -n prod
+              kubectl rollout status deploy worker-deploy -n prod
     
